@@ -32,6 +32,13 @@
     @empty
         null
     @endforelse
+
+    <br>
+    <a target="_blank" href="{{ url('url') }}">url方法</a>
+    <br>
+    <a target="_blank" href="{{ action('StudentController@url') }}">action方法</a>
+    <br>
+    <a target="_blank" href="{{ route('urlname') }}">route方法</a>
 @stop
 
 @section('content')

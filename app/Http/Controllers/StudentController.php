@@ -249,4 +249,12 @@ class StudentController extends Controller
         return view('student.test', $data);
     }
 
+    /**
+     * 模版
+     */
+    public function url()
+    {
+        return '测试url';
+    }
+
 }
