@@ -243,7 +243,7 @@ class StudentController extends Controller
     public function blade()
     {
         $data = [
-            'name' => '张三',
+            'name' => '张四',
             'allName' => ['张三', '李四']
         ];
         return view('student.test', $data);
