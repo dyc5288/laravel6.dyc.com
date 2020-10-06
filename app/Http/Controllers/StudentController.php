@@ -341,14 +341,16 @@ class StudentController extends Controller
      */
     public function response()
     {
+        $message = Session::get('message');
         $data = [
             'state' => 0,
             'code' => 14141,
-            'message' => '测试',
+            'message' => intval($message),
             'data' => [
                 'name' => '张三'
             ]
         ];
+        dd($data);
         return response()->json($data);
     }
 
@@ -362,7 +364,7 @@ class StudentController extends Controller
         switch ($type)
         {
             case 0:
-                return redirect('response');
+                return redirect('response')->with('message', '12313');
             case 1:
                 return redirect()->route('urlname');
             case 2:
@@ -370,6 +372,33 @@ class StudentController extends Controller
             default:
                 return redirect()->action('StudentController@session2');
         }
+    }
+
+    /**
+     * 活动准备前
+     * @return string
+     */
+    public function activity0()
+    {
+        return '活动还未开始，敬请期待';
+    }
+
+    /**
+     * 活动开始中
+     * @return string
+     */
+    public function activity1()
+    {
+        return '活动一正在进行中';
+    }
+
+    /**
+     * 活动二
+     * @return string
+     */
+    public function activity2()
+    {
+        return '活动二正在进行中';
     }
 
 }
