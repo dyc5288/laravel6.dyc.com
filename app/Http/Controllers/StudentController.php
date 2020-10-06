@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use App\Student;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
@@ -250,11 +251,49 @@ class StudentController extends Controller
     }
 
     /**
-     * 模版
+     * url测试
+     *
+     * @param Request $request
+     *
+     * @return string
      */
-    public function url()
+    public function url(Request $request)
     {
+        $name = $request->input('name');
+        echo "name: {$name}<br>";
+        if ($request->has('age')) {
+            $age = $request->input('age');
+            echo "age: {$age}<br>";
+        }
+        echo "全部参数:<br>";
+        var_dump($request->all());
+        echo "<br>";
+        $method = $request->method();
+        echo "method: {$method}<br>";
+        if ($request->isMethod('GET')) {
+            echo "GET请求<br>";
+        }
+        if ($request->ajax()) {
+            echo "ajax请求<br>";
+        }
+        if ($request->is("url*")) {
+            echo "url路由<br>";
+        }
+        $url = $request->url();
+        echo "url: {$url}<br>";
         return '测试url';
+    }
+
+    /**
+     * post请求
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function url2(Request $request)
+    {
+        return $this->url($request);
     }
 
 }

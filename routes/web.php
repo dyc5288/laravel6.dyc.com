@@ -92,7 +92,8 @@ Route::get('student/orm_insert', 'StudentController@orm_insert');
 Route::get('student/orm_update', 'StudentController@orm_update');
 Route::get('student/orm_delete', 'StudentController@orm_delete');
 Route::get('student/blade', 'StudentController@blade');
-Route::get('url', ['as' => 'urlname', 'uses' => 'StudentController@url']);
+Route::any('url', ['as' => 'urlname', 'uses' => 'StudentController@url']);
+Route::any('url2', ['uses' => 'StudentController@url2']);
 
 
 
