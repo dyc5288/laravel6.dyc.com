@@ -336,4 +336,40 @@ class StudentController extends Controller
         dd([$value, $value2, $value3, $all, $value4, $value5, $value6, $value7]);
     }
 
+    /**
+     * 响应json
+     */
+    public function response()
+    {
+        $data = [
+            'state' => 0,
+            'code' => 14141,
+            'message' => '测试',
+            'data' => [
+                'name' => '张三'
+            ]
+        ];
+        return response()->json($data);
+    }
+
+    /**
+     * 重定向
+     * @param Request $request
+     */
+    public function redirect(Request $request)
+    {
+        $type = $request->input('type', 0);
+        switch ($type)
+        {
+            case 0:
+                return redirect('response');
+            case 1:
+                return redirect()->route('urlname');
+            case 2:
+                return redirect()->back();
+            default:
+                return redirect()->action('StudentController@session2');
+        }
+    }
+
 }

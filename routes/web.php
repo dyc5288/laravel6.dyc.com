@@ -96,6 +96,8 @@ Route::any('url', ['as' => 'urlname', 'uses' => 'StudentController@url']);
 Route::any('url2', ['uses' => 'StudentController@url2']);
 Route::any('session1', ['uses' => 'StudentController@session1']);
 Route::any('session2', ['uses' => 'StudentController@session2']);
+Route::any('response', ['uses' => 'StudentController@response']);
+Route::any('redirect', ['uses' => 'StudentController@redirect']);
 
 
 
