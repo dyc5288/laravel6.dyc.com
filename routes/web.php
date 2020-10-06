@@ -94,7 +94,8 @@ Route::get('student/orm_delete', 'StudentController@orm_delete');
 Route::get('student/blade', 'StudentController@blade');
 Route::any('url', ['as' => 'urlname', 'uses' => 'StudentController@url']);
 Route::any('url2', ['uses' => 'StudentController@url2']);
-
+Route::any('session1', ['uses' => 'StudentController@session1']);
+Route::any('session2', ['uses' => 'StudentController@session2']);
 
 
 

@@ -12,6 +12,7 @@ use App\Member;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -294,6 +295,45 @@ class StudentController extends Controller
     public function url2(Request $request)
     {
         return $this->url($request);
+    }
+
+    /**
+     * session写入
+     * @param Request $request
+     */
+    public function session1(Request $request)
+    {
+        // http的 Request
+        $session = $request->session();
+        $session->put('test1', 'value1');
+        // session()
+        session()->put('test2', 'value2');
+        // Session
+        Session::put('test3', 'value3');
+        // push
+        Session::push('student', '张三');
+        Session::push('student', '李四');
+        // flash
+        Session::flash('flasha', 'fv1');
+    }
+
+    /**
+     * session读取
+     * @param Request $request
+     */
+    public function session2(Request $request)
+    {
+        //Session::flush();
+        $value = $request->session()->get('test1');
+        $value2 = session()->get('test2');
+        $value3 = session()->get('test3');
+        $all = Session::all();
+        $value5 = Session::pull('student', '默认');
+        $value4 = session()->get('student');
+        $value6 = session()->has('test4');
+        Session::forget('test2');
+        $value7 = Session::get('flasha');
+        dd([$value, $value2, $value3, $all, $value4, $value5, $value6, $value7]);
     }
 
 }
