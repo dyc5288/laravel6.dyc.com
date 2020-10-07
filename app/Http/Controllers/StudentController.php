@@ -401,4 +401,13 @@ class StudentController extends Controller
         return '活动二正在进行中';
     }
 
+    /**
+     * 首页列表
+     */
+    public function main()
+    {
+        $data = [];
+        return view('student.index', $data);
+    }
+
 }
