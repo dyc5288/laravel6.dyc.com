@@ -407,10 +407,40 @@ class StudentController extends Controller
     public function main()
     {
         //$students = Student::get();
-        $students = Student::paginate(1);
+        $students = Student::paginate(7);
         return view('student.index', [
             'students' => $students
         ]);
+    }
+
+    /**
+     * 添加和编辑
+     */
+    public function edit()
+    {
+        return view('student.edit');
+    }
+
+    /**
+     * 保存
+     * @param Request $request
+     */
+    public function save(Request $request)
+    {
+        $data = $request->input('Student');
+        $student = new Student();
+        $student->name = $data['name'];
+        $student->age = $data['age'];
+        $student->sex = $data['sex'];
+
+        if ($student->save())
+        {
+            return redirect('student/index')->with('success', '添加成功！');
+        }
+        else
+        {
+            return redirect()->back();
+        }
     }
 
 }

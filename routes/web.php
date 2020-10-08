@@ -106,7 +106,11 @@ Route::group(['middleware' => ['activity']], function (){
     Route::any('activity2', ['uses' => 'StudentController@activity2']);
 });
 
-Route::any('student/index', ['uses' => 'StudentController@main']);
+Route::group(['middleware' => ['web']], function (){
+    Route::any('student/index', ['uses' => 'StudentController@main']);
+    Route::any('student/edit', ['uses' => 'StudentController@edit']);
+    Route::any('student/save', ['uses' => 'StudentController@save']);
+});
 
 
 

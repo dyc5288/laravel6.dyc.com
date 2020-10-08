@@ -60,7 +60,6 @@
     // jquery初始化
     layui.use(['jquery'], function(){
         var $ = layui.$ //重点处
-        $("#studentIndex").addClass("layui-this");
     });
 
     // 分页
@@ -77,6 +76,9 @@
     // 弹窗
     layui.use('layer', function(){
         var layer = layui.layer;
+        @if (Session::has('success'))
+            layer.msg('{{ Session::get('success') }}', {icon: 1});
+        @endif
         //layer.msg('已存在该名字！', {icon: 2});
         //layer.msg('保存成功！', {icon: 1});
         //layer.load(1);

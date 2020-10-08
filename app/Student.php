@@ -44,6 +44,6 @@ class Student extends Model
     // 避免返回格式自动转换
     protected function asDateTime($value)
     {
-        return $value;
+        return date('Y-m-d H:i:s', $value);
     }
 }
