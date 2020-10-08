@@ -67,3 +67,12 @@
         </table>
     </div>
 @stop
+
+
+@section('javascript')
+    layui.use(['jquery'], function(){
+        var $ = layui.$ //重点处
+        $("#studentIndex").addClass("layui-this");
+    });
+
+@stop

@@ -29,8 +29,8 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">学生</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">学生列表</a></dd>
-                        <dd><a href="javascript:;">新增学生</a></dd>
+                        <dd id="studentIndex"><a href="javascript:;">学生列表</a></dd>
+                        <dd id="studentAdd"><a href="javascript:;">新增学生</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -55,7 +55,8 @@
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
-
+        @section('javascript')
+        @show
     });
 </script>
 </body>
