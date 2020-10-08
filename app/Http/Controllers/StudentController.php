@@ -406,8 +406,11 @@ class StudentController extends Controller
      */
     public function main()
     {
-        $data = [];
-        return view('student.index', $data);
+        //$students = Student::get();
+        $students = Student::paginate(1);
+        return view('student.index', [
+            'students' => $students
+        ]);
     }
 
 }

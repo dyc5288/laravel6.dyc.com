@@ -16,32 +16,32 @@ class Student extends Model
 
     protected $primaryKey = 'id';
 
-    // Ö¸¶¨ÔÊĞíÅúÁ¿¸³ÖµµÄ×Ö¶Î
+    // æŒ‡å®šå…è®¸æ‰¹é‡èµ‹å€¼çš„å­—æ®µ
     protected $fillable = ['name', 'age'];
 
-    // Ö¸¶¨²»ÔÊĞíÅúÁ¿¸³ÖµµÄ×Ö¶Î
+    // æŒ‡å®šä¸å…è®¸æ‰¹é‡èµ‹å€¼çš„å­—æ®µ
     protected $guarded = [];
 
-    // ×Ô¶¯Î¬»¤Ê±¼ä´Á
+    // è‡ªåŠ¨ç»´æŠ¤æ—¶é—´æˆ³
     public $timestamps = true;
 
-    // »ñÈ¡µ±Ç°Ê±¼ä
+    // è·å–å½“å‰æ—¶é—´
     public function freshTimestamp() {
         return time();
     }
 
-    // ×Ô¶¯Î¬»¤Ê±¼äµÄ¸ñÊ½
+    // è‡ªåŠ¨ç»´æŠ¤æ—¶é—´çš„æ ¼å¼
     protected function getDataFormat()
     {
         return time();
     }
 
-    // ±ÜÃâ×ª»»Ê±¼ä´ÁÎªÊ±¼ä×Ö·û´®
+    // é¿å…è½¬æ¢æ—¶é—´æˆ³ä¸ºæ—¶é—´å­—ç¬¦ä¸²
     public function fromDateTime($value) {
         return $value;
     }
 
-    // ±ÜÃâ·µ»Ø¸ñÊ½×Ô¶¯×ª»»
+    // é¿å…è¿”å›æ ¼å¼è‡ªåŠ¨è½¬æ¢
     protected function asDateTime($value)
     {
         return $value;

@@ -27,56 +27,44 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>张三</td>
-                <td>12</td>
-                <td>男</td>
-                <td>2016-11-29</td>
-                <td>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe63c;</i>
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe642;</i>
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe640;</i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>李四</td>
-                <td>18</td>
-                <td>女</td>
-                <td>2019-11-29</td>
-                <td>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe63c;</i>
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe642;</i>
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="layui-icon">&#xe640;</i>
-                    </button>
-                </td>
-            </tr>
+            @foreach($students as $student)
+                <tr>
+                    <td>{{ $student->id }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->age }}</td>
+                    <td>{{ $student->sex }}</td>
+                    <td>{{ $student->created_at }}</td>
+                    <td>
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+                            <i class="layui-icon">&#xe63c;</i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+                            <i class="layui-icon">&#xe642;</i>
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+                            <i class="layui-icon">&#xe640;</i>
+                        </button>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
-        <div class="page" id="page"></div>
+        <div class="pull-right">
+            {{ $students->render() }}
+        </div>
     </div>
 @stop
 
 
 @section('javascript')
+    // jquery初始化
     layui.use(['jquery'], function(){
         var $ = layui.$ //重点处
         $("#studentIndex").addClass("layui-this");
     });
 
-    layui.use('laypage', function(){
+    // 分页
+    /*layui.use('laypage', function(){
         var laypage = layui.laypage;
 
         //执行一个laypage实例
@@ -84,6 +72,15 @@
             elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
             ,count: 50 //数据总数，从服务端得到
         });
+    });*/
+
+    // 弹窗
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        //layer.msg('已存在该名字！', {icon: 2});
+        //layer.msg('保存成功！', {icon: 1});
+        //layer.load(1);
+        //layer.alert('酷毙了', {icon: 5});
     });
 
 @stop
