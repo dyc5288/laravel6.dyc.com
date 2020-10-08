@@ -6,7 +6,8 @@
 
 @section('content')
     <div style="padding: 15px;">
-        <form class="layui-form" action="/student/save">
+        <form class="layui-form" method="post" action="">
+            {{ csrf_field() }}
             <div class="layui-form-item">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-inline">

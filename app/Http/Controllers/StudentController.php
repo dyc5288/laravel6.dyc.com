@@ -415,9 +415,24 @@ class StudentController extends Controller
 
     /**
      * 添加和编辑
+     * @param Request $request
      */
-    public function edit()
+    public function edit(Request $request)
     {
+        if ($request->isMethod('POST'))
+        {
+            $data = $request->input('Student');
+
+            if (Student::create($data))
+            {
+                return redirect('student/index')->with('success', '添加成功！');
+            }
+            else
+            {
+                return redirect()->back();
+            }
+        }
+
         return view('student.edit');
     }
 
