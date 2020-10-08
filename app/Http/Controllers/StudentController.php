@@ -10,7 +10,9 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use App\Student;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -243,10 +245,169 @@ class StudentController extends Controller
     public function blade()
     {
         $data = [
-            'name' => '张三',
+            'name' => '张四',
             'allName' => ['张三', '李四']
         ];
         return view('student.test', $data);
+    }
+
+    /**
+     * url测试
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function url(Request $request)
+    {
+        $name = $request->input('name');
+        echo "name: {$name}<br>";
+        if ($request->has('age')) {
+            $age = $request->input('age');
+            echo "age: {$age}<br>";
+        }
+        echo "全部参数:<br>";
+        var_dump($request->all());
+        echo "<br>";
+        $method = $request->method();
+        echo "method: {$method}<br>";
+        if ($request->isMethod('GET')) {
+            echo "GET请求<br>";
+        }
+        if ($request->ajax()) {
+            echo "ajax请求<br>";
+        }
+        if ($request->is("url*")) {
+            echo "url路由<br>";
+        }
+        $url = $request->url();
+        echo "url: {$url}<br>";
+        return '测试url';
+    }
+
+    /**
+     * post请求
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
+    public function url2(Request $request)
+    {
+        return $this->url($request);
+    }
+
+    /**
+     * session写入
+     * @param Request $request
+     */
+    public function session1(Request $request)
+    {
+        // http的 Request
+        $session = $request->session();
+        $session->put('test1', 'value1');
+        // session()
+        session()->put('test2', 'value2');
+        // Session
+        Session::put('test3', 'value3');
+        // push
+        Session::push('student', '张三');
+        Session::push('student', '李四');
+        // flash
+        Session::flash('flasha', 'fv1');
+    }
+
+    /**
+     * session读取
+     * @param Request $request
+     */
+    public function session2(Request $request)
+    {
+        //Session::flush();
+        $value = $request->session()->get('test1');
+        $value2 = session()->get('test2');
+        $value3 = session()->get('test3');
+        $all = Session::all();
+        $value5 = Session::pull('student', '默认');
+        $value4 = session()->get('student');
+        $value6 = session()->has('test4');
+        Session::forget('test2');
+        $value7 = Session::get('flasha');
+        dd([$value, $value2, $value3, $all, $value4, $value5, $value6, $value7]);
+    }
+
+    /**
+     * 响应json
+     */
+    public function response()
+    {
+        $message = Session::get('message');
+        $data = [
+            'state' => 0,
+            'code' => 14141,
+            'message' => intval($message),
+            'data' => [
+                'name' => '张三'
+            ]
+        ];
+        dd($data);
+        return response()->json($data);
+    }
+
+    /**
+     * 重定向
+     * @param Request $request
+     */
+    public function redirect(Request $request)
+    {
+        $type = $request->input('type', 0);
+        switch ($type)
+        {
+            case 0:
+                return redirect('response')->with('message', '12313');
+            case 1:
+                return redirect()->route('urlname');
+            case 2:
+                return redirect()->back();
+            default:
+                return redirect()->action('StudentController@session2');
+        }
+    }
+
+    /**
+     * 活动准备前
+     * @return string
+     */
+    public function activity0()
+    {
+        return '活动还未开始，敬请期待';
+    }
+
+    /**
+     * 活动开始中
+     * @return string
+     */
+    public function activity1()
+    {
+        return '活动一正在进行中';
+    }
+
+    /**
+     * 活动二
+     * @return string
+     */
+    public function activity2()
+    {
+        return '活动二正在进行中';
+    }
+
+    /**
+     * 首页列表
+     */
+    public function main()
+    {
+        $data = [];
+        return view('student.index', $data);
     }
 
 }

@@ -92,7 +92,21 @@ Route::get('student/orm_insert', 'StudentController@orm_insert');
 Route::get('student/orm_update', 'StudentController@orm_update');
 Route::get('student/orm_delete', 'StudentController@orm_delete');
 Route::get('student/blade', 'StudentController@blade');
+Route::any('url', ['as' => 'urlname', 'uses' => 'StudentController@url']);
+Route::any('url2', ['uses' => 'StudentController@url2']);
+Route::group(['middleware' => ['web']], function (){
+    Route::any('session1', ['uses' => 'StudentController@session1']);
+    Route::any('session2', ['uses' => 'StudentController@session2']);
+    Route::any('response', ['uses' => 'StudentController@response']);
+});
+Route::any('redirect', ['uses' => 'StudentController@redirect']);
+Route::any('activity0', ['uses' => 'StudentController@activity0']);
+Route::group(['middleware' => ['activity']], function (){
+    Route::any('activity1', ['uses' => 'StudentController@activity1']);
+    Route::any('activity2', ['uses' => 'StudentController@activity2']);
+});
 
+Route::any('student/index', ['uses' => 'StudentController@main']);
 
 
 
