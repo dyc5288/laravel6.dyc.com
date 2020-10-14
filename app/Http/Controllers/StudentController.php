@@ -421,6 +421,51 @@ class StudentController extends Controller
     {
         if ($request->isMethod('POST'))
         {
+            $validate = $request->input('validate');
+            switch ($validate)
+            {
+                case '1':
+                    $this->validate($request, [
+                            'Student.name' => 'required|min:2|max:20',
+                            'Student.age' => 'required|integer',
+                            'Student.sex' => 'required|integer'
+                        ], [
+                            'required' => ':attribute为必选项',
+                            'min' => ':attribute长度不符合要求',
+                            'max' => ':attribute长度不符合要求',
+                            'integer' => ':attribute必须为整数',
+                        ], [
+                            'Student.name' => '姓名',
+                            'Student.age' => '年龄',
+                            'Student.sex' => '性别'
+                        ]
+                    );
+                    break;
+                case '2':
+                    $validator = \Validator::make(
+                        $request->input(),[
+                            'Student.name' => 'required|min:2|max:20',
+                            'Student.age' => 'required|integer',
+                            'Student.sex' => 'required|integer'
+                        ], [
+                            'required' => ':attribute为必选项',
+                            'min' => ':attribute长度不符合要求',
+                            'max' => ':attribute长度不符合要求',
+                            'integer' => ':attribute必须为整数',
+                        ], [
+                            'Student.name' => '姓名',
+                            'Student.age' => '年龄',
+                            'Student.sex' => '性别'
+                        ]
+                    );
+                    if ($validator->fails())
+                    {
+                        return redirect()->back()->withErrors($validator)->withInput();
+                    }
+
+                    break;
+            }
+
             $data = $request->input('Student');
 
             if (Student::create($data))
