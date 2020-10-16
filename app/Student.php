@@ -12,8 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $table = 'student';
+    const SEX_UNKNOWN = ''; // 未知
+    const SEX_BOY = '1'; // 男
+    const SEX_GIRL = '0'; // 女
 
+    protected $table = 'student';
     protected $primaryKey = 'id';
 
     // 指定允许批量赋值的字段
@@ -28,6 +31,27 @@ class Student extends Model
     // 获取当前时间
     public function freshTimestamp() {
         return time();
+    }
+
+    /**
+     * 获取性别
+     * @param null $sexId
+     * @return array|mixed
+     */
+    public function getSex($sexId = null)
+    {
+        $data = [
+            self::SEX_UNKNOWN => '未知',
+            self::SEX_BOY => '男',
+            self::SEX_GIRL => '女'
+        ];
+
+        if ($sexId === null)
+        {
+            return $data;
+        }
+
+        return array_key_exists($sexId, $data) ? $data[$sexId] : $data[self::SEX_UNKNOWN];
     }
 
     // 自动维护时间的格式

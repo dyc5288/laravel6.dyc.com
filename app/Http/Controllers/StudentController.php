@@ -478,7 +478,9 @@ class StudentController extends Controller
             }
         }
 
-        return view('student.edit');
+        $student = new Student();
+        $data = ['student' => $student];
+        return view('student.edit', $data);
     }
 
     /**

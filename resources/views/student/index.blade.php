@@ -32,7 +32,7 @@
                     <td>{{ $student->id }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->age }}</td>
-                    <td>{{ $student->sex }}</td>
+                    <td>{{ $student->getSex($student->sex) }}</td>
                     <td>{{ $student->created_at }}</td>
                     <td>
                         <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">

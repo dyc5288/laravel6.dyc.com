@@ -27,9 +27,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">性别</label>
                 <div class="layui-input-block"  id="StudentSex">
-                    <input type="radio" name="Student[sex]" value="" title="请选择性别" checked>
-                    <input type="radio" name="Student[sex]" value="1" title="男">
-                    <input type="radio" name="Student[sex]" value="0" title="女">
+                    @foreach($student->getSex() as $sexId => $sexName)
+                        @php
+                            $sexId = strval($sexId);
+                            $oldSexId = strval(old('Student')['sex']);
+                        @endphp
+                        <input type="radio" name="Student[sex]" value="{{ $sexId }}" title="{{ ($sexId === '') ? '请选择性别' : $sexName }}"
+                                {{ old('Student') ? ($oldSexId === $sexId ? 'checked' : '') : ($sexId === '' ? 'checked' : '') }}>
+                    @endforeach
                     <span style="color: red;">{{ $errors->first('Student.sex') }}</span>
                 </div>
             </div>
