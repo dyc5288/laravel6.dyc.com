@@ -1,7 +1,7 @@
 @extends('common.layouts')
 
 @section('title')
-添加学生
+编辑学生
 @stop
 
 @section('content')

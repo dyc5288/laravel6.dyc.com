@@ -110,6 +110,7 @@ Route::group(['middleware' => ['web']], function (){
     Route::any('student/index', ['uses' => 'StudentController@main']);
     Route::any('student/edit', ['uses' => 'StudentController@edit']);
     Route::any('student/save', ['uses' => 'StudentController@save']);
+    Route::any('student/update/{id}', ['uses' => 'StudentController@update']);
 });
 
 
