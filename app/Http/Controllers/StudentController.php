@@ -513,6 +513,7 @@ class StudentController extends Controller
             $student->name = $data['name'];
             $student->age = $data['age'];
             $student->sex = $data['sex'];
+            $student->updated_at = time();
 
             if ($student->save())
             {
@@ -546,6 +547,42 @@ class StudentController extends Controller
         else
         {
             return redirect()->back();
+        }
+    }
+
+    /**
+     * 详情
+     * @param $studentId
+     */
+    public function detail($studentId)
+    {
+        $student = Student::find($studentId);
+
+        if (empty($student))
+        {
+            return redirect('student/index')->with('error', "学生ID-{$studentId}不存在！");
+        }
+
+        $data = ['student' => $student];
+        return view('student.detail', $data);
+
+    }
+
+    /**
+     * 删除
+     * @param $studentId
+     */
+    public function delete($studentId)
+    {
+        $student = Student::find($studentId);
+
+        if (!empty($student) && $student->delete())
+        {
+            return redirect('student/index')->with('success', '删除成功！');
+        }
+        else
+        {
+            return redirect('student/index')->with('error', '删除失败！');
         }
     }
 

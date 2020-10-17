@@ -29,7 +29,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">学生</a>
                     <dl class="layui-nav-child">
-                        <dd class="{{ Request::getPathInfo() == '/student/index' ? 'layui-this' : '' }}"><a href="{{ url('student/index') }}">学生列表</a></dd>
+                        <dd class="{{ Request::getPathInfo() != '/student/edit' ? 'layui-this' : '' }}"><a href="{{ url('student/index') }}">学生列表</a></dd>
                         <dd class="{{ Request::getPathInfo() == '/student/edit' ? 'layui-this' : '' }}"><a href="{{ url('student/edit') }}">新增学生</a></dd>
                     </dl>
                 </li>

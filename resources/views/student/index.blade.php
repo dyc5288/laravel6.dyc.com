@@ -35,13 +35,17 @@
                     <td>{{ $student->getSex($student->sex) }}</td>
                     <td>{{ $student->created_at }}</td>
                     <td>
-                        <button type="button" onclick="" class="layui-btn layui-btn-sm layui-btn-primary">
+                        <button type="button" onclick="window.location.href = '{{ url('/student/detail', ['id' => $student->id]) }}';"
+                                class="layui-btn layui-btn-sm layui-btn-primary">
                             <i class="layui-icon">&#xe63c;</i>
                         </button>
-                        <button type="button" onclick="window.location.href = '{{ url('/student/update', ['id' => $student->id]) }}';" class="layui-btn layui-btn-sm layui-btn-primary">
+                        <button type="button" onclick="window.location.href = '{{ url('/student/update', ['id' => $student->id]) }}';"
+                                class="layui-btn layui-btn-sm layui-btn-primary">
                             <i class="layui-icon">&#xe642;</i>
                         </button>
-                        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+                        <button type="button" onclick="if (confirm('确定要删除吗？') == false) return false;
+                                window.location.href = '{{ url('/student/delete', ['id' => $student->id]) }}';"
+                                class="layui-btn layui-btn-sm layui-btn-primary">
                             <i class="layui-icon">&#xe640;</i>
                         </button>
                     </td>
