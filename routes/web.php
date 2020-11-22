@@ -115,7 +115,7 @@ Route::group(['middleware' => ['web']], function (){
     Route::any('student/delete/{id}', ['uses' => 'StudentController@delete']);
 });
 
-
+Route::any('student/curl', 'StudentController@curl');
 
 
 

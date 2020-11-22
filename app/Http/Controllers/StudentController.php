@@ -586,4 +586,12 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * 测试curl的cookie
+     */
+    public function curl()
+    {
+        var_dump($_COOKIE);die;
+    }
+
 }
