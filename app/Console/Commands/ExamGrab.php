@@ -143,8 +143,8 @@ class ExamGrab extends Command
             foreach($matchs[0] as $row)
             {
                 $detailUrl = "https://www.nowcoder.com{$row}";
-                $detail = self::curl_get($detailUrl, [], $this->cookie);
-                $pattern = "/question-main\">([^<]*)</m";
+                $detail = html_entity_decode(self::curl_get($detailUrl, [], $this->cookie));
+                $pattern = "/question-main\">(.*?)<\/div>\n<\/div>\n<\/div>\n<div class=\"result-subject-item/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
                 if (empty($dmatchs[1]))
@@ -153,7 +153,7 @@ class ExamGrab extends Command
                 }
 
                 $question = $dmatchs[1][0];
-                $pattern = "/pre>([^<]*)<\/pre/m";
+                $pattern = "/class=\"result-answer-item[^>]*\">(.*?)<\/div/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
                 if (empty($dmatchs[1]))
@@ -165,10 +165,10 @@ class ExamGrab extends Command
 
                 foreach ($selects as $k => $s)
                 {
-                    $selects[$k] = html_entity_decode($s);
+                    $selects[$k] = $s;
                 }
 
-                $pattern = "/正确答案:\n(\w)/m";
+                $pattern = "/正确答案:\n(.*?)  你的答案/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
                 if (empty($dmatchs[1]))
@@ -176,7 +176,7 @@ class ExamGrab extends Command
                     continue;
                 }
 
-                $answer = $dmatchs[1][0];
+                $answer = trim(str_replace("\n", " ", $dmatchs[1][0]));
                 var_dump(['q' => $question, 's' => $selects, 'a' => $answer]);
             }
         }
