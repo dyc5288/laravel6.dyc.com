@@ -179,7 +179,7 @@ class ExamGrab extends Command
 
                 if (!empty($jsonData[$md5]))
                 {
-                    echo "{$url} had enter." . PHP_EOL;
+                    echo "{$detailUrl} had enter." . PHP_EOL;
                     continue;
                 }
 
@@ -189,6 +189,7 @@ class ExamGrab extends Command
 
                 if (empty($dmatchs[1]))
                 {
+                    echo "{$url} no question." . PHP_EOL;
                     continue;
                 }
 
@@ -198,6 +199,7 @@ class ExamGrab extends Command
 
                 if (empty($dmatchs[1]))
                 {
+                    echo "{$url} no selects." . PHP_EOL;
                     continue;
                 }
 
@@ -214,6 +216,7 @@ class ExamGrab extends Command
 
                 if (empty($dmatchs[1]))
                 {
+                    echo "{$url} no answer." . PHP_EOL;
                     continue;
                 }
 
@@ -235,7 +238,6 @@ class ExamGrab extends Command
                 {
                     $params['args[questiontype]'] = '1';
                     $params['targs[questionanswer1]'] = $answer;
-                    continue;
                 }
                 else if (count($answers) > 1)
                 {
@@ -254,7 +256,7 @@ class ExamGrab extends Command
                 if ($res['message'] == '操作成功')
                 {
                     $jsonData[$md5] = 1;
-                    echo $question . ' enter success!' . PHP_EOL;
+                    echo $detailUrl . ' enter success!' . PHP_EOL;
                 }
                 else
                 {
