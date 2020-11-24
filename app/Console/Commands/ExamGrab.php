@@ -11,7 +11,7 @@ class ExamGrab extends Command
      *
      * @var string
      */
-    protected $signature = 'ExamGrab {y}';
+    protected $signature = 'ExamGrab {y} {num}';
     protected $cookie = 'NOWCODERUID=D1A717DF6F6404C2FA6642C21A5F3134; NOWCODERCLINETID=58C0352CE9C88A6A970845137BDB2C10; Hm_lvt_a808a1326b6c06c437de769d1b85b870=1606025424; gr_user_id=7753ec53-9be8-405e-9c3c-7fa07121e812; grwng_uid=d2b402fe-2e8b-4af4-9743-282346e4572a; t=C5EEC26D8E205A8D5BA260DB5D3E51F4; c196c3667d214851b11233f5c17f99d5_gr_last_sent_cs1=319252981; c196c3667d214851b11233f5c17f99d5_gr_session_id=a340a7fa-44e0-477e-bfa0-a4e658e80dff; c196c3667d214851b11233f5c17f99d5_gr_last_sent_sid_with_cs1=a340a7fa-44e0-477e-bfa0-a4e658e80dff; c196c3667d214851b11233f5c17f99d5_gr_session_id_a340a7fa-44e0-477e-bfa0-a4e658e80dff=true; Hm_lpvt_a808a1326b6c06c437de769d1b85b870=1606028505; c196c3667d214851b11233f5c17f99d5_gr_cs1=319252981; SERVERID=3a1c9805c8714fdca6b2e754d978f568|1606028510|1606025422';
     protected $cookie_ksxt = 'exam_currentuser=%25C5q%259Ds%25B4%25A6%259D%2594flS%25A4%259A%25D5%25A4%25CD%25A8%259E%25DA%25D9%25C8%25A5%25A2%259BYp%25D7j%2595sYn%259DY%25A0%25ACsd%2598%259DU%25A5%2596%25A4%25A8%25CB%25A0%25D2%25A9%2591%25D8%25D9%25DA%25A2%25AB%259BYp%25D7j%2596kq%255B%2598%259B%259B%259Dmk%259A%25C6%2596d%2592%2592g%259Bg%25C5%259Cb%2598%25CB%259A%2595i%259Cm%259B%25C6f%25C4qmp%2586r%25D8srm%2585%25D6%2598%25A5%25A4%259A%25A4%25D0%259A%25D4%255Bk%25D8%25A0%2594fsYhl%2596%255E%2595mel%2597e%2597lpU%259E%25D6mcekW%25D5%2596%25D7%25AC%2599%25D4%25D4%25CA%25A5%25A8%25AC%25A7%259E%25C8R%259E%25ACqj%259EY%259E%255Bt%25A6%259D%2594ilS%25A4%259A%25D5%25A4%25CD%25A8%259E%25D1%25D5%25CA%259C%25A7%25AB%25A0%25A2%25C9R%259E%25A2qj%259Ag%259Bjjj%2597%259Ccm%25A4kf%2597k%2586%25AC%2595%25D8%25D9%25CC%25A2%25A7%25AC%25AA%259A%25D6%259E%25C4%25A6%259C%255B%259F%25AA%259FosU%25C7%25D8%2594%25A0%25AA%2594W%259D%25A4%259Ejf%259F%2588%25D6%2598%25AC%25AA%25A0%25A4%25D2%25A4%25CC%25A6%259C%25A5%25CD%25A4%25CE%25AD%255Bn%25CC%259Ddhagf%2593h%2598r%2560%25A0%25D9%259DlsY%25AA%259A%25D7%25A3%25CC%25A8%25A5%25A2%25C8Y%25A0%25ACsf%2595%259DUfi%2594l%25C5%2596%2595%259A%2560%25CB%2598%25C4j%259Cg%259Dg%2595%2591%25C7j%259Dm%259An%2599mkf%25C4%2599%2596Tl%25AE; PHPSESSID=i8onaukvpnnpce6qjtgcb0ju31';
 
@@ -162,6 +162,7 @@ class ExamGrab extends Command
     public function handle()
     {
         $y = $this->argument('y');
+        $num = $this->argument('num');
         $url = 'https://www.nowcoder.com/test/question/done?tid=39557824&qid=4555#summary';
         $result = self::curl_get($url, [], $this->cookie);
 
@@ -169,6 +170,7 @@ class ExamGrab extends Command
         preg_match_all ($pattern, $result, $matchs);
         $jsonFile = storage_path("app/examGrab.json");
         $jsonData = file_exists($jsonFile) ? json_decode(file_get_contents($jsonFile), true) : [];
+        $index = 0;
 
         if (!empty($matchs[0]))
         {
@@ -177,13 +179,19 @@ class ExamGrab extends Command
                 $detailUrl = "https://www.nowcoder.com{$row}";
                 $md5 = md5($detailUrl);
 
+                if ($index >= $num)
+                {
+                    echo "finish {$num}." . PHP_EOL;
+                    break;
+                }
+
                 if (!empty($jsonData[$md5]))
                 {
                     echo "{$detailUrl} had enter." . PHP_EOL;
                     continue;
                 }
 
-                $detail = html_entity_decode(self::curl_get($detailUrl, [], $this->cookie));
+                $detail = self::curl_get($detailUrl, [], $this->cookie);
                 $pattern = "/question-main\">(.*?)<\/div>\n<\/div>\n<\/div>\n<div class=\"result-subject-item/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
@@ -250,8 +258,9 @@ class ExamGrab extends Command
                     continue;
                 }
 
-                $ksxtResult = self::curl_post($ksxtUrl, $params, $this->cookie_ksxt);
+                $ksxtResult = $y ? self::curl_post($ksxtUrl, $params, $this->cookie_ksxt) : false;
                 $res = json_decode($ksxtResult, true);
+                $index++;
 
                 if ($res['message'] == '操作成功')
                 {
