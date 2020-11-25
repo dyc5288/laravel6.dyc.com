@@ -202,6 +202,14 @@ class ExamGrab extends Command
                 }
 
                 $question = $dmatchs[1][0];
+
+                if (strpos($question, '</pre>') !== false)
+                {
+                    $question = html_entity_decode($question);
+                    echo "{$detailUrl} pre continue." . PHP_EOL;
+                    continue;
+                }
+
                 $pattern = "/class=\"result-answer-item[^>]*\">(.*?)<\/div/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
@@ -216,10 +224,10 @@ class ExamGrab extends Command
 
                 foreach ($selects as $k => $s)
                 {
-                    $selects[$k] = "<p>" . $snames[$k] . "、" . substr($s, 6, -7) . "</p>";
+                    $selects[$k] = "<p>" . $snames[$k] . "、" . $s . "</p>";
                 }
 
-                $pattern = "/正确答案:\n(.*?)  你的答案/is";
+                $pattern = "/正确答案:(.*?)你的答案/is";
                 preg_match_all ($pattern, $detail, $dmatchs);
 
                 if (empty($dmatchs[1]))
@@ -228,7 +236,7 @@ class ExamGrab extends Command
                     continue;
                 }
 
-                $answer = trim(str_replace("\n", " ", $dmatchs[1][0]));
+                $answer = trim(str_replace(["\n", "&nbsp;"], [" ", ""], $dmatchs[1][0]));
                 $answers = explode(' ', $answer);
                 $ksxtUrl = 'http://172.22.46.55:8080/index.php?exam-teach-questions-addquestion';
                 $params = [
