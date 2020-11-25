@@ -170,6 +170,8 @@ class ExamGrab extends Command
         preg_match_all ($pattern, $result, $matchs);
         $jsonFile = storage_path("app/examGrab.json");
         $jsonData = file_exists($jsonFile) ? json_decode(file_get_contents($jsonFile), true) : [];
+        $jsonSelectFile = storage_path("app/examSelect.json");
+        $jsonSelectData = file_exists($jsonSelectFile) ? file_get_contents($jsonSelectFile) : "";
         $index = 0;
 
         if (!empty($matchs[0]))
@@ -272,6 +274,7 @@ class ExamGrab extends Command
 
                 if ($res['message'] == '操作成功')
                 {
+                    $jsonSelectData .= $question . ":" . $detailUrl . PHP_EOL;
                     $jsonData[$md5] = 1;
                     echo $detailUrl . ' enter success!' . PHP_EOL;
                 }
@@ -283,6 +286,7 @@ class ExamGrab extends Command
         }
 
         file_put_contents($jsonFile, json_encode($jsonData));
+        file_put_contents($jsonSelectFile, $jsonSelectData);
 
     }
 }
