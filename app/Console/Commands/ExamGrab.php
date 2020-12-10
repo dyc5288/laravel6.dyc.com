@@ -12,8 +12,8 @@ class ExamGrab extends Command
      * @var string
      */
     protected $signature = 'ExamGrab {y} {num} {tid} {qid}';
-    protected $cookie = 'NOWCODERUID=D1A717DF6F6404C2FA6642C21A5F3134; NOWCODERCLINETID=58C0352CE9C88A6A970845137BDB2C10; Hm_lvt_a808a1326b6c06c437de769d1b85b870=1606025424; gr_user_id=7753ec53-9be8-405e-9c3c-7fa07121e812; grwng_uid=d2b402fe-2e8b-4af4-9743-282346e4572a; c196c3667d214851b11233f5c17f99d5_gr_last_sent_cs1=319252981; t=2013FB6E3B4DDCE9EA8E5153200EFA51; c196c3667d214851b11233f5c17f99d5_gr_session_id=bfddcf55-2921-4a5e-bd4b-6b3654ba90c9; c196c3667d214851b11233f5c17f99d5_gr_last_sent_sid_with_cs1=bfddcf55-2921-4a5e-bd4b-6b3654ba90c9; c196c3667d214851b11233f5c17f99d5_gr_session_id_bfddcf55-2921-4a5e-bd4b-6b3654ba90c9=true; Hm_lpvt_a808a1326b6c06c437de769d1b85b870=1606269851; c196c3667d214851b11233f5c17f99d5_gr_cs1=319252981; SERVERID=20209ceebe066108970cd5046744d133|1606269852|1606267552';
-    protected $cookie_ksxt = 'exam_currentuser=%25C5q%259Ds%25B4%25A6%259D%2594flS%25A4%259A%25D5%25A4%25CD%25A8%259E%25DA%25D9%25C8%25A5%25A2%259BYp%25D7j%2595sYn%259DY%25A0%25ACsd%2598%259DU%25A5%2596%25A4%25A8%25CB%25A0%25D2%25A9%2591%25D8%25D9%25DA%25A2%25AB%259BYp%25D7j%2596kq%255B%2598%259B%259B%259Dmk%259A%25C6%2596d%2592%2592g%259Bg%25C5%259Cb%2598%25CB%259A%2595i%259Cm%259B%25C6f%25C4qmp%2586r%25D8srm%2585%25D6%2598%25A5%25A4%259A%25A4%25D0%259A%25D4%255Bk%25D8%25A0%2594fsYhl%2596%255E%2595mel%2597e%2597lpU%259E%25D6mcekW%25D5%2596%25D7%25AC%2599%25D4%25D4%25CA%25A5%25A8%25AC%25A7%259E%25C8R%259E%25ACqj%259EY%259E%255Bt%25A6%259D%2594ilS%25A4%259A%25D5%25A4%25CD%25A8%259E%25D1%25D5%25CA%259C%25A7%25AB%25A0%25A2%25C9R%259E%25A2qj%259Ag%259Bjjj%2597%259Ccm%25A4kf%2597k%2586%25AC%2595%25D8%25D9%25CC%25A2%25A7%25AC%25AA%259A%25D6%259E%25C4%25A6%259C%255B%259F%25AA%259FosU%25C7%25D8%2594%25A0%25AA%2594W%259D%25A4%259Ejf%259F%2588%25D6%2598%25AC%25AA%25A0%25A4%25D2%25A4%25CC%25A6%259C%25A5%25CD%25A4%25CE%25AD%255Bn%25CC%259Ddhagf%2593h%2598r%2560%25A0%25D9%259DlsY%25AA%259A%25D7%25A3%25CC%25A8%25A5%25A2%25C8Y%25A0%25ACsf%2595%259DUfi%2594l%25C5%2596%2595%259A%2560%25CB%2598%25C4j%259Cg%259Dg%2595%2591%25C7j%259Dm%259An%2599mkf%25C4%2599%2596Tl%25AE; PHPSESSID=i8onaukvpnnpce6qjtgcb0ju31';
+    protected $cookie = 'NOWCODERUID=B953FCCD143C28EC899996739103E33F; NOWCODERCLINETID=61BA768A98166EAC2A1042282B44FDBE; Hm_lvt_a808a1326b6c06c437de769d1b85b870=1607562041; t=85147AF0988C577F0A4F333A7A118C37; Hm_lpvt_a808a1326b6c06c437de769d1b85b870=1607567696; SERVERID=76c38881415ad3405ef5a3db2e9b59bb|1607567853|1607565971';
+    protected $cookie_ksxt = 'PHPSESSID=4i6rj9usgdq34pkrh6grhf3fh0; exam_currentuser=%25C5q%259Ds%25B4%25A6%259D%2594flS%25A4%259A%25D5%25A4%25CD%25A8%259E%25DA%25D9%25C8%25A5%25A2%259BYp%25D7j%2595sYr%259AY%25A0%25ACsd%2598%259DU%25A5%2596%25A4%25A8%25CB%25A0%25D2%25A9%2591%25D8%25D9%25DA%25A2%25AB%259BYp%25D7j%2596kq%255B%2594%259C%25C7%259Bq%2594%2596%2597cfd%2596n%25C4%2592%2597lc%259B%259D%25C5kjk%2598%2599%25C7%2595%2596kgo%2586r%25D8srm%2585%25D6%2598%25A5%25A4%259A%25A4%25D0%259A%25D4%255Bk%25D8%25A0%2594fsYhl%2596%255E%2595qej%259Dk%2593pmU%259E%25D6mcekW%25D5%2596%25D7%25AC%2599%25D4%25D4%25CA%25A5%25A8%25AC%25A7%259E%25C8R%259E%25ACqj%259EY%2596%255Bt%25A6%259D%2594ilS%25A4%259A%25D5%25A4%25CD%25A8%259E%25D1%25D5%25CA%259C%25A7%25AB%25A0%25A2%25C9R%259E%25A2qj%259Ag%259Cnoj%259B%2596cm%25A4kf%2597k%2586%25AC%2595%25D8%25D9%25CC%25A2%25A7%25AC%25AA%259A%25D6%259E%25C4%25A6%259C%255B%259F%25AA%259FosU%25C7%25D8%2594%25A0%25AA%2594W%259D%25A4%259Ejf%259F%2588%25D6%2598%25AC%25AA%25A0%25A4%25D2%25A4%25CC%25A6%259C%25A5%25CD%25A4%25CE%25AD%255Bn%25CC%259Ddhahj%2598h%259Cl%2560%25A0%25D9%259DlsY%25AA%259A%25D7%25A3%25CC%25A8%25A5%25A2%25C8Y%25A0%25ACsf%2595%259DUichi%2598b%259B%259Eb%259A%25C7%2595%2598%259E%259Am%259A%2597%2592%25C9%259Dmi%25C7p%2596%259E%259Fd%25C9%25C7iTl%25AE';
 
     /**
      * The console command description.
@@ -249,7 +249,7 @@ class ExamGrab extends Command
 
                 $answer = trim(str_replace(["\n", "&nbsp;"], [" ", ""], $dmatchs[1][0]));
                 $answers = explode(' ', $answer);
-                $ksxtUrl = 'http://172.22.46.55:8080/index.php?exam-teach-questions-addquestion';
+                $ksxtUrl = 'http://172.22.46.55:8080/index.php?exam-master-questions-addquestion';
                 $params = [
                     'args[questionknowsid]' => '84:实习生第2月',
                     'args[question]' => $question,
@@ -278,10 +278,10 @@ class ExamGrab extends Command
                 }
 
                 $ksxtResult = $y ? self::curl_post($ksxtUrl, $params, $this->cookie_ksxt) : false;
-                $res = json_decode($ksxtResult, true);
+                //$res = json_decode($ksxtResult, true);
                 $index++;
 
-                if ($res['message'] == '操作成功')
+                if (strpos($ksxtResult, 'window.location = \'index.php?exam-master-questions&page=\''))
                 {
                     $jsonSelectData .= $question . ":" . $detailUrl . PHP_EOL;
                     $jsonData[$md5] = 1;
@@ -290,7 +290,7 @@ class ExamGrab extends Command
                 }
                 else
                 {
-                    echo 'enter fail, error:' . $res['message'] . PHP_EOL;
+                    echo 'enter fail, error:' . $ksxtResult . PHP_EOL;die;
                 }
             }
         }
